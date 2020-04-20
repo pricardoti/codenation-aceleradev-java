@@ -1,5 +1,7 @@
 # Codenatio Aceleradev - Java 2020
 
+![Banana](https://github.com/pricardoti/codenatio-aceleradev-java/blob/master/img.png)
+
 O programa é dividido em módulos semanais dentro da nossa plataforma. Os módulos contam com aulas, conteúdos na plataforma, desafios e desenvolvimento do projeto prático ao longo das semanas do programa.
 
 Irei adicionar o conteúdo gerado para solucionar todos os desafios a medida que forem sendo concluídos.
