@@ -2,8 +2,10 @@ package br.com.codenation;
 
 import br.com.codenation.desafio.annotation.Desafio;
 import br.com.codenation.desafio.app.MeuTimeInterface;
-import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
+import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
+import br.com.codenation.model.Jogador;
 import br.com.codenation.model.Time;
+import br.com.codenation.util.ValidatorUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,25 +16,36 @@ import java.util.Optional;
 public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     private List<Time> times = new ArrayList<>();
+    private List<Jogador> jogadores = new ArrayList<>();
 
     @Desafio("incluirTime")
     public void incluirTime(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal, String corUniformeSecundario) {
-        if (isEmpty(id) || isEmpty(nome) || isEmpty(dataCriacao) || isEmpty(corUniformePrincipal) || isEmpty(corUniformeSecundario)) {
-            throw new IllegalArgumentException("Um ou mais campos obrigatórios não informado !");
-        }
-
-        Time time = buscarTimePorId(id);
-        if (!isEmpty(time)) {
-            throw new IdentificadorUtilizadoException();
-        }
-
+        ValidatorUtil.validarValorId(id);
+        ValidatorUtil.validarCamposObrigatorios(nome, dataCriacao, corUniformePrincipal, corUniformeSecundario);
+        ValidatorUtil.validarIdDuplicado(id, times);
         times.add(new Time(id, nome, dataCriacao, corUniformePrincipal, corUniformeSecundario));
     }
 
-
     @Desafio("incluirJogador")
     public void incluirJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade, BigDecimal salario) {
-        throw new UnsupportedOperationException();
+        ValidatorUtil.validarValorId(id);
+        ValidatorUtil.validarCamposObrigatorios(nome, dataNascimento, nivelHabilidade, salario);
+
+        if (nivelHabilidade < 0 || nivelHabilidade > 100) {
+            throw new IllegalArgumentException("O nivel de habilidade informado é inválido !");
+        }
+
+        if (salario.compareTo(BigDecimal.ZERO) < 1) {
+            throw new IllegalArgumentException("O salário informado é inválido !");
+        }
+
+        if (!ValidatorUtil.isIdExiste(idTime, times)) {
+            throw new TimeNaoEncontradoException("O id do time informado não foi encontrado.");
+        }
+
+        ValidatorUtil.validarIdDuplicado(id, jogadores);
+
+        jogadores.add(new Jogador(id, idTime, nome, dataNascimento, nivelHabilidade, salario));
     }
 
     @Desafio("definirCapitao")
@@ -53,7 +66,7 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
     @Desafio("buscarNomeTime")
     public String buscarNomeTime(Long idTime) {
         Time time = buscarTimePorId(idTime);
-        return isEmpty(time) ? null : time.getNome();
+        return ValidatorUtil.isEmpty(time) ? null : time.getNome();
     }
 
     @Desafio("buscarJogadoresDoTime")
@@ -94,10 +107,6 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
     @Desafio("buscarCorCamisaTimeDeFora")
     public String buscarCorCamisaTimeDeFora(Long timeDaCasa, Long timeDeFora) {
         throw new UnsupportedOperationException();
-    }
-
-    private boolean isEmpty(Object arg) {
-        return arg == null || arg.toString().trim().isEmpty();
     }
 
     private Time buscarTimePorId(Long id) {

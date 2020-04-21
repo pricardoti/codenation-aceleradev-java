@@ -1,23 +1,21 @@
 package br.com.codenation;
 
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
+import org.junit.Before;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
-public class DesafioMeuTimeApplicationTest {
+public class MeuTimeTest extends AbstractTest {
 
-    private static final Long idTime = new Random().nextLong();
-    private static final DesafioMeuTimeApplication desafioMeuTimeApplication = new DesafioMeuTimeApplication();
-
-    private LocalDate dataCriacao = LocalDate.now();
+    @Before
+    public void before() {
+        desafioMeuTimeApplication = new DesafioMeuTimeApplication();
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void incluirTimeValidarNomeObrigatorioTest() {
-        desafioMeuTimeApplication.incluirTime(idTime, "", dataCriacao, "Vermelho", "Preto");
+        desafioMeuTimeApplication.incluirTime(idTime, "", data, "Vermelho", "Preto");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -27,22 +25,29 @@ public class DesafioMeuTimeApplicationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void incluirTimeValidarCorUniformePrincipalObrigatorioTest() {
-        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", dataCriacao, "", "Preto");
+        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", data, "", "Preto");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void incluirTimeValidarCorUniformeSecundarioObrigatorioTest() {
-        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", dataCriacao, "Vermelho", "");
+        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", data, "Vermelho", "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void incluirTimeValidarIdNegativoTest() {
+        desafioMeuTimeApplication.incluirTime(-1L, "Time 1", data, "Vermelho", "Preto");
+        assertEquals("Time 1", desafioMeuTimeApplication.buscarNomeTime(idTime));
     }
 
     @Test
     public void incluirTimeTest() {
-        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", dataCriacao, "Vermelho", "Preto");
+        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", data, "Vermelho", "Preto");
         assertEquals("Time 1", desafioMeuTimeApplication.buscarNomeTime(idTime));
     }
 
     @Test(expected = IdentificadorUtilizadoException.class)
     public void incluirTimeIdDuplicadoTest() {
-        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", dataCriacao, "Vermelho", "Preto");
+        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", data, "Vermelho", "Preto");
+        desafioMeuTimeApplication.incluirTime(idTime, "Time 2", data, "Preto", "Vermelho");
     }
 }
