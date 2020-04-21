@@ -6,6 +6,7 @@
 # File compile
 bin/
 build/
+libs/
 out/
 
 # Files
