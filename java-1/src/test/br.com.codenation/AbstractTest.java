@@ -6,6 +6,7 @@ import java.util.stream.LongStream;
 public class AbstractTest {
 
     protected static DesafioMeuTimeApplication desafioMeuTimeApplication;
-    protected static final Long idTime = LongStream.range(1, 20).findFirst().getAsLong();
+    protected static Long idTime = LongStream.range(1, 20).findFirst().getAsLong();
+
     protected LocalDate data = LocalDate.now();
 }

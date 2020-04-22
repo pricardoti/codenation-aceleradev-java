@@ -11,6 +11,8 @@ public class Jogador extends AbstractModel {
     private Integer nivelHabilidade;
     private BigDecimal salario;
 
+    private boolean capitao;
+
     public Jogador() {
         super();
     }
@@ -62,5 +64,13 @@ public class Jogador extends AbstractModel {
 
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
+    }
+
+    public boolean isCapitao() {
+        return capitao;
+    }
+
+    public void setCapitao(boolean capitao) {
+        this.capitao = capitao;
     }
 }

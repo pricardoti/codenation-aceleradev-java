@@ -2,6 +2,8 @@ package br.com.codenation;
 
 import br.com.codenation.desafio.annotation.Desafio;
 import br.com.codenation.desafio.app.MeuTimeInterface;
+import br.com.codenation.desafio.exceptions.CapitaoNaoInformadoException;
+import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 import br.com.codenation.model.Jogador;
 import br.com.codenation.model.Time;
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
@@ -50,12 +53,35 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     @Desafio("definirCapitao")
     public void definirCapitao(Long idJogador) {
-        throw new UnsupportedOperationException();
+        Jogador jogador = buscarJogadorPorId(idJogador);
+
+        if (jogador == null) {
+            throw new JogadorNaoEncontradoException();
+        }
+
+        jogadores = jogadores.stream().map(element -> {
+            if (element.getIdTime().equals(jogador.getIdTime())) {
+                boolean capitao = element.equals(jogador);
+                element.setCapitao(capitao);
+            }
+            return element;
+        }).collect(Collectors.toList());
     }
 
     @Desafio("buscarCapitaoDoTime")
     public Long buscarCapitaoDoTime(Long idTime) {
-        throw new UnsupportedOperationException();
+        Time time = buscarTimePorId(idTime);
+        if (time == null) {
+            throw new TimeNaoEncontradoException();
+        }
+
+        Optional<Jogador> resultado = jogadores.stream()
+                .filter(jogador -> jogador.getIdTime().equals(time.getId()) && jogador.isCapitao()).findFirst();
+        if (!resultado.isPresent()) {
+            throw new CapitaoNaoInformadoException();
+        }
+
+        return resultado.get().getId();
     }
 
     @Desafio("buscarNomeJogador")
@@ -111,6 +137,11 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     private Time buscarTimePorId(Long id) {
         Optional<Time> resultado = times.stream().filter(time -> time.getId().equals(id)).findFirst();
+        return resultado.isPresent() ? resultado.get() : null;
+    }
+
+    private Jogador buscarJogadorPorId(Long id) {
+        Optional<Jogador> resultado = jogadores.stream().filter(jogador -> jogador.getId().equals(id)).findFirst();
         return resultado.isPresent() ? resultado.get() : null;
     }
 }
