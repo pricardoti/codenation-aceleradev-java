@@ -51,15 +51,34 @@ public class JogadorTest extends AbstractJogadorTest {
         desafioMeuTimeApplication.incluirJogador(idJogador, 100L, "Jogador 1", data, nivelHabilidade, salario);
     }
 
-    @Test
-    public void incluirJogadorSucessoTest() {
-        desafioMeuTimeApplication.incluirJogador(idJogador, idTime, "Jogador 1", data, nivelHabilidade, salario);
-    }
-
     @Test(expected = IdentificadorUtilizadoException.class)
     public void incluirJogadorFalhaTest() {
         desafioMeuTimeApplication.incluirJogador(idJogador, idTime, "Jogador 1", data, nivelHabilidade, salario);
         desafioMeuTimeApplication.incluirJogador(idJogador, idTime, "Jogador 2", data, nivelHabilidade, salario);
     }
 
+    @Test
+    public void incluirJogadorSucessoTest() {
+        desafioMeuTimeApplication.incluirJogador(idJogador, idTime, "Jogador 1", data, nivelHabilidade, salario);
+    }
+
+    @Test(expected = JogadorNaoEncontradoException.class)
+    public void buscarNomeJogadorNaoEncontratoTest() {
+        Long idJogadorBuscarNome = idJogador + 10;
+        incluirJogadoresBuscaNome(idJogadorBuscarNome);
+        assertEquals("Jogador Selecionado", desafioMeuTimeApplication.buscarNomeJogador(100L));
+    }
+
+    @Test
+    public void buscarNomeJogadorTest() {
+        Long idJogadorBuscarNome = idJogador + 2;
+        incluirJogadoresBuscaNome(idJogadorBuscarNome);
+        assertEquals("Jogador Selecionado", desafioMeuTimeApplication.buscarNomeJogador(idJogadorBuscarNome));
+    }
+
+    private void incluirJogadoresBuscaNome(Long idJogadorBuscarNome) {
+        desafioMeuTimeApplication.incluirJogador(idJogador, idTime, "Jogador 1", data, nivelHabilidade, salario);
+        desafioMeuTimeApplication.incluirJogador(idJogadorBuscarNome, idTime, "Jogador Selecionado", data, nivelHabilidade, salario);
+        desafioMeuTimeApplication.incluirJogador(idJogador + 3, idTime, "Jogador 3", data, nivelHabilidade, salario);
+    }
 }

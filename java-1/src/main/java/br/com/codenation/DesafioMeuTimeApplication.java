@@ -70,13 +70,12 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     @Desafio("buscarCapitaoDoTime")
     public Long buscarCapitaoDoTime(Long idTime) {
-        Time time = buscarTimePorId(idTime);
-        if (time == null) {
-            throw new TimeNaoEncontradoException();
+        if (!ValidatorUtil.isIdExiste(idTime, times)) {
+            throw new TimeNaoEncontradoException("O id do time informado não foi encontrado.");
         }
 
         Optional<Jogador> resultado = jogadores.stream()
-                .filter(jogador -> jogador.getIdTime().equals(time.getId()) && jogador.isCapitao()).findFirst();
+                .filter(jogador -> jogador.getIdTime().equals(idTime) && jogador.isCapitao()).findFirst();
         if (!resultado.isPresent()) {
             throw new CapitaoNaoInformadoException();
         }
@@ -86,13 +85,20 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     @Desafio("buscarNomeJogador")
     public String buscarNomeJogador(Long idJogador) {
-        throw new UnsupportedOperationException();
+        Jogador jogador = buscarJogadorPorId(idJogador);
+        if (jogador == null) {
+            throw new JogadorNaoEncontradoException();
+        }
+        return jogador.getNome();
     }
 
     @Desafio("buscarNomeTime")
     public String buscarNomeTime(Long idTime) {
         Time time = buscarTimePorId(idTime);
-        return ValidatorUtil.isEmpty(time) ? null : time.getNome();
+        if (time == null) {
+            throw new TimeNaoEncontradoException();
+        }
+        return time.getNome();
     }
 
     @Desafio("buscarJogadoresDoTime")

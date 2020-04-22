@@ -1,6 +1,7 @@
 package br.com.codenation;
 
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
+import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +38,12 @@ public class MeuTimeTest extends AbstractTest {
     public void incluirTimeValidarIdNegativoTest() {
         desafioMeuTimeApplication.incluirTime(-1L, "Time 1", data, "Vermelho", "Preto");
         assertEquals("Time 1", desafioMeuTimeApplication.buscarNomeTime(idTime));
+    }
+
+    @Test(expected = TimeNaoEncontradoException.class)
+    public void buscarNomeTimeNaoEncontratoTest() {
+        desafioMeuTimeApplication.incluirTime(idTime, "Time 1", data, "Vermelho", "Preto");
+        desafioMeuTimeApplication.buscarNomeTime(100L);
     }
 
     @Test
