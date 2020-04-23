@@ -1,12 +1,13 @@
 package br.com.codenation;
 
 import java.time.LocalDate;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.LongStream;
 
 public class AbstractTest {
 
     protected static DesafioMeuTimeApplication desafioMeuTimeApplication;
-    protected static Long idTime = LongStream.range(1, 20).findFirst().getAsLong();
-
+    protected static Long idTime = ThreadLocalRandom
+            .current().nextLong(1, 20);
     protected LocalDate data = LocalDate.now();
 }

@@ -6,7 +6,7 @@ import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.stream.LongStream;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,9 +20,9 @@ public class CapitaoTest extends AbstractJogadorTest {
     public void before() {
         super.before();
 
-        desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_1, "Jogador 1", data, getRandomNivelHablidade(), getRandomSalario());
-        desafioMeuTimeApplication.incluirJogador(idCapitaoPrimeiroTime, CODIGO_TIME_1, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
-        desafioMeuTimeApplication.incluirJogador(idJogador + 10, CODIGO_TIME_1, "Jogador 3", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_DEFAULT, "Jogador 1", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idCapitaoPrimeiroTime, CODIGO_TIME_DEFAULT, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idJogador + 10, CODIGO_TIME_DEFAULT, "Jogador 3", data, getRandomNivelHablidade(), getRandomSalario());
 
         desafioMeuTimeApplication.incluirJogador(idJogador + 2, CODIGO_TIME_2, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
         desafioMeuTimeApplication.incluirJogador(idCapitaoSegundoTime, CODIGO_TIME_2, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
@@ -47,8 +47,8 @@ public class CapitaoTest extends AbstractJogadorTest {
 
     @Test(expected = CapitaoNaoInformadoException.class)
     public void buscarCapitaoDoTimeNaoInformadoTest() {
-        Long idTime = LongStream.range(1, 3).findFirst().getAsLong();
-        desafioMeuTimeApplication.buscarCapitaoDoTime(idTime);
+        desafioMeuTimeApplication.buscarCapitaoDoTime(ThreadLocalRandom
+                .current().nextLong(1, 3));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class CapitaoTest extends AbstractJogadorTest {
         desafioMeuTimeApplication.definirCapitao(idCapitaoSegundoTime);
         desafioMeuTimeApplication.definirCapitao(idCapitaoTerceiroTime);
 
-        assertEquals(idCapitaoPrimeiroTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_1));
+        assertEquals(idCapitaoPrimeiroTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_DEFAULT));
         assertEquals(idCapitaoSegundoTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_2));
         assertEquals(idCapitaoTerceiroTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_3));
     }
