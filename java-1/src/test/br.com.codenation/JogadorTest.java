@@ -114,7 +114,7 @@ public class JogadorTest extends AbstractJogadorTest {
 
     @Test(expected = TimeNaoEncontradoException.class)
     public void buscarMelhorJogadorDoTimeNaoEncontradoTest() {
-        incluirJogadorTimeNaoEncontrado();
+        incluirJogadoresPadroesTime();
         desafioMeuTimeApplication.buscarMelhorJogadorDoTime(5L);
     }
 
@@ -132,13 +132,13 @@ public class JogadorTest extends AbstractJogadorTest {
 
     @Test(expected = TimeNaoEncontradoException.class)
     public void buscarJogadorMaisVelhoTimeNaoEncontradoTest() {
-        incluirJogadorTimeNaoEncontrado();
+        incluirJogadoresPadroesTime();
         desafioMeuTimeApplication.buscarJogadorMaisVelho(5L);
     }
 
     @Test
     public void buscarJogadorMaisVelhoTimeTest() {
-        Long idJogador = ThreadLocalRandom.current().nextLong(6, 100);
+        Long idJogador = ThreadLocalRandom.current().nextLong(10, 100);
         desafioMeuTimeApplication.incluirJogador(1L, CODIGO_TIME_DEFAULT, "Jogador 1", data, getRandomNivelHablidade(), getRandomSalario());
         desafioMeuTimeApplication.incluirJogador(2L, CODIGO_TIME_DEFAULT, "Jogador 2", LocalDate.of(1993, 8, 18), getRandomNivelHablidade(), getRandomSalario());
         desafioMeuTimeApplication.incluirJogador(3L, CODIGO_TIME_DEFAULT, "Jogador 3", data, getRandomNivelHablidade(), getRandomSalario());
@@ -148,9 +148,59 @@ public class JogadorTest extends AbstractJogadorTest {
         assertEquals(idJogador, desafioMeuTimeApplication.buscarJogadorMaisVelho(CODIGO_TIME_DEFAULT));
     }
 
-    private void incluirJogadorTimeNaoEncontrado() {
+    @Test
+    public void buscarTimesVazioTest() {
+        desafioMeuTimeApplication = new DesafioMeuTimeApplication();
+        assertEquals(desafioMeuTimeApplication.buscarTimes().size(), 0);
+    }
+
+    @Test
+    public void buscarTimesTest() {
+        assertEquals(desafioMeuTimeApplication.buscarTimes().size(), 3);
+
+        desafioMeuTimeApplication.incluirTime(4L, "Time 4", data, "Marrom", "Branco");
+        desafioMeuTimeApplication.incluirTime(5L, "Time 5", data, "Verde", "Branco");
+        assertEquals(desafioMeuTimeApplication.buscarTimes().size(), 5);
+    }
+
+    private void incluirJogadoresPadroesTime() {
         desafioMeuTimeApplication.incluirJogador(1L, CODIGO_TIME_DEFAULT, "Jogador 1", data, getRandomNivelHablidade(), getRandomSalario());
         desafioMeuTimeApplication.incluirJogador(2L, CODIGO_TIME_DEFAULT, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
         desafioMeuTimeApplication.incluirJogador(3L, CODIGO_TIME_DEFAULT, "Jogador 3", data, getRandomNivelHablidade(), getRandomSalario());
+    }
+
+    @Test(expected = TimeNaoEncontradoException.class)
+    public void buscarJogadorMaiorSalarioNaoEncontradoTest() {
+        incluirJogadoresPadroesTime();
+        desafioMeuTimeApplication.buscarJogadorMaiorSalario(5L);
+    }
+
+    @Test
+    public void buscarJogadorMaiorSalarioTest() {
+        Long idJogador = ThreadLocalRandom.current().nextLong(10, 100);
+        desafioMeuTimeApplication.incluirJogador(1L, CODIGO_TIME_DEFAULT, "Jogador 1", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(2L, CODIGO_TIME_DEFAULT, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_DEFAULT, "Jogador Maior Salario", data, getRandomNivelHablidade(), BigDecimal.valueOf(250000));
+        desafioMeuTimeApplication.incluirJogador(4L, CODIGO_TIME_DEFAULT, "Jogador 4", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(5L, CODIGO_TIME_DEFAULT, "Jogador 5", data, getRandomNivelHablidade(), getRandomSalario());
+        assertEquals(idJogador, desafioMeuTimeApplication.buscarJogadorMaiorSalario(CODIGO_TIME_DEFAULT));
+    }
+
+    @Test(expected = JogadorNaoEncontradoException.class)
+    public void buscarSalarioDoJogadorNaoEncontradoTest() {
+        incluirJogadoresPadroesTime();
+        desafioMeuTimeApplication.buscarSalarioDoJogador(5L);
+    }
+
+    @Test
+    public void buscarSalarioDoJogadorTest() {
+        Long idJogador = ThreadLocalRandom.current().nextLong(10, 100);
+        BigDecimal salarioJogador = BigDecimal.valueOf(250000);
+
+        desafioMeuTimeApplication.incluirJogador(1L, CODIGO_TIME_DEFAULT, "Jogador 1", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(2L, CODIGO_TIME_DEFAULT, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_DEFAULT, "Jogador Salario", data, getRandomNivelHablidade(), salarioJogador);
+
+        assertEquals(salarioJogador, desafioMeuTimeApplication.buscarSalarioDoJogador(idJogador));
     }
 }

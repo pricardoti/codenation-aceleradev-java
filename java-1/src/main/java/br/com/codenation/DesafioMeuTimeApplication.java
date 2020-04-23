@@ -119,17 +119,29 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     @Desafio("buscarTimes")
     public List<Long> buscarTimes() {
-        throw new UnsupportedOperationException();
+        List<Long> idTimes = new ArrayList<>();
+        times.forEach(time -> {
+            if (!idTimes.contains(time.getId()))
+                idTimes.add(time.getId());
+        });
+        return idTimes;
     }
 
     @Desafio("buscarJogadorMaiorSalario")
     public Long buscarJogadorMaiorSalario(Long idTime) {
-        throw new UnsupportedOperationException();
+        buscarTimePorId(idTime);
+        Jogador jogadorMaiorSalario = null;
+        for (Jogador jogador : jogadores) {
+            if (jogadorMaiorSalario == null  || (jogador.getIdTime().equals(idTime)
+                    && jogador.getSalario().compareTo(jogadorMaiorSalario.getSalario()) > 0))
+                jogadorMaiorSalario = jogador;
+        };
+        return jogadorMaiorSalario.getId();
     }
 
     @Desafio("buscarSalarioDoJogador")
     public BigDecimal buscarSalarioDoJogador(Long idJogador) {
-        throw new UnsupportedOperationException();
+        return buscarJogadorPorId(idJogador).getSalario();
     }
 
     @Desafio("buscarTopJogadores")

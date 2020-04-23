@@ -28,6 +28,6 @@ public class AbstractJogadorTest extends AbstractTest {
 
     protected BigDecimal getRandomSalario() {
         return BigDecimal.valueOf(ThreadLocalRandom
-                .current().nextLong(1, 1000000000));
+                .current().nextLong(1, 100000));
     }
 }
