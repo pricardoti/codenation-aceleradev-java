@@ -91,6 +91,11 @@ public class JogadorTest extends AbstractJogadorTest {
     public void buscarJogadoresDoTimeTest() {
         List<Long> jogadoresTime = desafioMeuTimeApplication.buscarJogadoresDoTime(CODIGO_TIME_1);
         assertEquals(jogadoresTime.size(), 0);
+
+        incluirJogadores(CODIGO_TIME_1, 1L, 2L, 3L);
+
+        jogadoresTime = desafioMeuTimeApplication.buscarJogadoresDoTime(CODIGO_TIME_1);
+        assertEquals(jogadoresTime.size(), 3);
     }
 
     private void incluirJogadoresBuscaNome(Long idJogadorBuscarNome) {

@@ -85,7 +85,12 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
     @Desafio("buscarJogadoresDoTime")
     public List<Long> buscarJogadoresDoTime(Long idTime) {
         buscarTimePorId(idTime);
-        return Collections.emptyList();
+        List<Long> idsJogadoresTime = new ArrayList<>();
+        jogadores.forEach(jogador -> {
+            if (jogador.getIdTime().equals(idTime))
+                idsJogadoresTime.add(jogador.getId());
+        });
+        return idsJogadoresTime;
     }
 
     @Desafio("buscarMelhorJogadorDoTime")
