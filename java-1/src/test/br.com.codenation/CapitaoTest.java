@@ -20,17 +20,17 @@ public class CapitaoTest extends AbstractJogadorTest {
     public void before() {
         super.before();
 
-        desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_1, "Jogador 1", data, nivelHabilidade, salario);
-        desafioMeuTimeApplication.incluirJogador(idCapitaoPrimeiroTime, CODIGO_TIME_1, "Jogador 2", data, nivelHabilidade, salario);
-        desafioMeuTimeApplication.incluirJogador(idJogador + 10, CODIGO_TIME_1, "Jogador 3", data, nivelHabilidade, salario);
+        desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_1, "Jogador 1", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idCapitaoPrimeiroTime, CODIGO_TIME_1, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idJogador + 10, CODIGO_TIME_1, "Jogador 3", data, getRandomNivelHablidade(), getRandomSalario());
 
-        desafioMeuTimeApplication.incluirJogador(idJogador + 2, CODIGO_TIME_2, "Jogador 2", data, nivelHabilidade, salario);
-        desafioMeuTimeApplication.incluirJogador(idCapitaoSegundoTime, CODIGO_TIME_2, "Jogador 2", data, nivelHabilidade, salario);
-        desafioMeuTimeApplication.incluirJogador(idJogador + 8, CODIGO_TIME_2, "Jogador 3", data, nivelHabilidade, salario);
+        desafioMeuTimeApplication.incluirJogador(idJogador + 2, CODIGO_TIME_2, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idCapitaoSegundoTime, CODIGO_TIME_2, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idJogador + 8, CODIGO_TIME_2, "Jogador 3", data, getRandomNivelHablidade(), getRandomSalario());
 
-        desafioMeuTimeApplication.incluirJogador(idJogador + 3, CODIGO_TIME_3, "Jogador 2", data, nivelHabilidade, salario);
-        desafioMeuTimeApplication.incluirJogador(idCapitaoTerceiroTime, CODIGO_TIME_3, "Jogador 2", data, nivelHabilidade, salario);
-        desafioMeuTimeApplication.incluirJogador(idJogador + 9, CODIGO_TIME_3, "Jogador 3", data, nivelHabilidade, salario);
+        desafioMeuTimeApplication.incluirJogador(idJogador + 3, CODIGO_TIME_3, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idCapitaoTerceiroTime, CODIGO_TIME_3, "Jogador 2", data, getRandomNivelHablidade(), getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(idJogador + 9, CODIGO_TIME_3, "Jogador 3", data, getRandomNivelHablidade(), getRandomSalario());
     }
 
     @Test(expected = JogadorNaoEncontradoException.class)

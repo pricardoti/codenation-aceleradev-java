@@ -12,6 +12,7 @@ import br.com.codenation.util.ValidatorUtil;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,56 +55,37 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
     @Desafio("definirCapitao")
     public void definirCapitao(Long idJogador) {
         Jogador jogador = buscarJogadorPorId(idJogador);
-
-        if (jogador == null) {
-            throw new JogadorNaoEncontradoException();
-        }
-
         jogadores = jogadores.stream().map(element -> {
-            if (element.getIdTime().equals(jogador.getIdTime())) {
-                boolean capitao = element.equals(jogador);
-                element.setCapitao(capitao);
-            }
+            if (element.getIdTime().equals(jogador.getIdTime()))
+                element.setCapitao(element.equals(jogador));
             return element;
         }).collect(Collectors.toList());
     }
 
     @Desafio("buscarCapitaoDoTime")
     public Long buscarCapitaoDoTime(Long idTime) {
-        if (!ValidatorUtil.isIdExiste(idTime, times)) {
-            throw new TimeNaoEncontradoException("O id do time informado não foi encontrado.");
-        }
-
+        buscarTimePorId(idTime);
         Optional<Jogador> resultado = jogadores.stream()
                 .filter(jogador -> jogador.getIdTime().equals(idTime) && jogador.isCapitao()).findFirst();
-        if (!resultado.isPresent()) {
+        if (!resultado.isPresent())
             throw new CapitaoNaoInformadoException();
-        }
-
         return resultado.get().getId();
     }
 
     @Desafio("buscarNomeJogador")
     public String buscarNomeJogador(Long idJogador) {
-        Jogador jogador = buscarJogadorPorId(idJogador);
-        if (jogador == null) {
-            throw new JogadorNaoEncontradoException();
-        }
-        return jogador.getNome();
+        return buscarJogadorPorId(idJogador).getNome();
     }
 
     @Desafio("buscarNomeTime")
     public String buscarNomeTime(Long idTime) {
-        Time time = buscarTimePorId(idTime);
-        if (time == null) {
-            throw new TimeNaoEncontradoException();
-        }
-        return time.getNome();
+        return buscarTimePorId(idTime).getNome();
     }
 
     @Desafio("buscarJogadoresDoTime")
     public List<Long> buscarJogadoresDoTime(Long idTime) {
-        throw new UnsupportedOperationException();
+        buscarTimePorId(idTime);
+        return Collections.emptyList();
     }
 
     @Desafio("buscarMelhorJogadorDoTime")
@@ -143,11 +125,15 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     private Time buscarTimePorId(Long id) {
         Optional<Time> resultado = times.stream().filter(time -> time.getId().equals(id)).findFirst();
-        return resultado.isPresent() ? resultado.get() : null;
+        if (!resultado.isPresent())
+            throw new TimeNaoEncontradoException();
+        return resultado.get();
     }
 
     private Jogador buscarJogadorPorId(Long id) {
         Optional<Jogador> resultado = jogadores.stream().filter(jogador -> jogador.getId().equals(id)).findFirst();
-        return resultado.isPresent() ? resultado.get() : null;
+        if (!resultado.isPresent())
+            throw new JogadorNaoEncontradoException();
+        return resultado.get();
     }
 }

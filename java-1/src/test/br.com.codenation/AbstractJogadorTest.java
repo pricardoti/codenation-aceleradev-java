@@ -13,8 +13,6 @@ public class AbstractJogadorTest extends AbstractTest {
     protected static final long CODIGO_TIME_3 = 3L;
 
     protected static Long idJogador = LongStream.range(1, 20).findFirst().getAsLong();
-    protected Integer nivelHabilidade = IntStream.range(0, 100).findFirst().getAsInt();
-    protected BigDecimal salario = BigDecimal.valueOf(1000000000);
 
     @Before
     public void before() {
@@ -22,5 +20,13 @@ public class AbstractJogadorTest extends AbstractTest {
         desafioMeuTimeApplication.incluirTime(CODIGO_TIME_1, "Time 1", data, "Vermelho", "Preto");
         desafioMeuTimeApplication.incluirTime(CODIGO_TIME_2, "Time 2", data, "Azul", "Branco");
         desafioMeuTimeApplication.incluirTime(CODIGO_TIME_3, "Time 3", data, "Amarelo", "Vermelho");
+    }
+
+    protected Integer getRandomNivelHablidade() {
+        return IntStream.range(0, 100).findFirst().getAsInt();
+    }
+
+    protected BigDecimal getRandomSalario() {
+        return BigDecimal.valueOf(LongStream.range(1, 1000000000).findFirst().getAsLong());
     }
 }
