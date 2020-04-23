@@ -11,7 +11,10 @@ import br.com.codenation.util.ValidatorUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DesafioMeuTimeApplication implements MeuTimeInterface {
@@ -166,7 +169,11 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     @Desafio("buscarCorCamisaTimeDeFora")
     public String buscarCorCamisaTimeDeFora(Long timeDaCasa, Long timeDeFora) {
-        throw new UnsupportedOperationException();
+        Time timePrincipal = buscarTimePorId(timeDaCasa);
+        Time timeVisitante = buscarTimePorId(timeDeFora);
+        return timePrincipal.getCorUniformePrincipal().equals(timeVisitante.getCorUniformePrincipal())
+                ? timeVisitante.getCorUniformeSecundario()
+                : timeVisitante.getCorUniformePrincipal();
     }
 
     private Time buscarTimePorId(Long id) {

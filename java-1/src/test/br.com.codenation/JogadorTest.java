@@ -231,4 +231,17 @@ public class JogadorTest extends AbstractJogadorTest {
         assertEquals(topJogadores.get(1), 1L);
         assertEquals(topJogadores.get(2), 3L);
     }
+
+    @Test(expected = TimeNaoEncontradoException.class)
+    public void buscarCorCamisaTimeDeForaNaoEncontradoTest() {
+        desafioMeuTimeApplication.buscarCorCamisaTimeDeFora(CODIGO_TIME_DEFAULT, 5L);
+    }
+
+    @Test
+    public void buscarCorCamisaTimeDeFora() {
+        assertEquals("Azul", desafioMeuTimeApplication.buscarCorCamisaTimeDeFora(CODIGO_TIME_DEFAULT, CODIGO_TIME_2));
+        assertEquals("Branco", desafioMeuTimeApplication.buscarCorCamisaTimeDeFora(CODIGO_TIME_DEFAULT, CODIGO_TIME_3));
+        assertEquals("Vermelho", desafioMeuTimeApplication.buscarCorCamisaTimeDeFora(CODIGO_TIME_2, CODIGO_TIME_3));
+    }
+
 }

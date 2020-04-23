@@ -18,7 +18,7 @@ public class AbstractJogadorTest extends AbstractTest {
         desafioMeuTimeApplication = new DesafioMeuTimeApplication();
         desafioMeuTimeApplication.incluirTime(CODIGO_TIME_DEFAULT, "Time 1", data, "Vermelho", "Preto");
         desafioMeuTimeApplication.incluirTime(CODIGO_TIME_2, "Time 2", data, "Azul", "Branco");
-        desafioMeuTimeApplication.incluirTime(CODIGO_TIME_3, "Time 3", data, "Amarelo", "Vermelho");
+        desafioMeuTimeApplication.incluirTime(CODIGO_TIME_3, "Time 3", data, "Vermelho", "Branco");
     }
 
     protected Integer getRandomNivelHablidade() {
