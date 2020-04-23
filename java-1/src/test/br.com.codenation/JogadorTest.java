@@ -69,7 +69,6 @@ public class JogadorTest extends AbstractJogadorTest {
     @Test(expected = JogadorNaoEncontradoException.class)
     public void buscarNomeJogadorNaoEncontratoTest() {
         Long idJogadorBuscarNome = ThreadLocalRandom.current().nextLong(1, 99);
-        ;
         incluirJogadoresBuscaNome(idJogadorBuscarNome);
         desafioMeuTimeApplication.buscarNomeJogador(100L);
     }
@@ -202,5 +201,34 @@ public class JogadorTest extends AbstractJogadorTest {
         desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_DEFAULT, "Jogador Salario", data, getRandomNivelHablidade(), salarioJogador);
 
         assertEquals(salarioJogador, desafioMeuTimeApplication.buscarSalarioDoJogador(idJogador));
+    }
+
+    @Test
+    public void buscarTopJogadoresVazioTest() {
+        desafioMeuTimeApplication = new DesafioMeuTimeApplication();
+        assertEquals(desafioMeuTimeApplication.buscarTopJogadores(3).size(), 0);
+    }
+
+    @Test
+    public void buscarTopJogadoresTest() {
+        desafioMeuTimeApplication = new DesafioMeuTimeApplication();
+
+        desafioMeuTimeApplication.incluirTime(CODIGO_TIME_DEFAULT, "Time 1", data, "Vermelho", "Preto");
+
+        desafioMeuTimeApplication.incluirJogador(1L, CODIGO_TIME_DEFAULT, "Jogador 1", data, 3, getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(2L, CODIGO_TIME_DEFAULT, "Jogador 2", data, 5, getRandomSalario());
+        desafioMeuTimeApplication.incluirJogador(3L, CODIGO_TIME_DEFAULT, "Jogador 3", data, 1, getRandomSalario());
+
+        // TOP 1
+        List<Long> topJogadores = desafioMeuTimeApplication.buscarTopJogadores(1);
+        assertEquals(topJogadores.size(), 1);
+        assertEquals(topJogadores.get(0), 2L);
+
+        // TOP 3
+        topJogadores = desafioMeuTimeApplication.buscarTopJogadores(3);
+        assertEquals(topJogadores.size(), 3);
+        assertEquals(topJogadores.get(0), 2L);
+        assertEquals(topJogadores.get(1), 1L);
+        assertEquals(topJogadores.get(2), 3L);
     }
 }

@@ -11,10 +11,7 @@ import br.com.codenation.util.ValidatorUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DesafioMeuTimeApplication implements MeuTimeInterface {
@@ -96,12 +93,13 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
     @Desafio("buscarMelhorJogadorDoTime")
     public Long buscarMelhorJogadorDoTime(Long idTime) {
         buscarTimePorId(idTime);
-        Jogador melhorJogador=  null;
+        Jogador melhorJogador = null;
         for (Jogador jogador : jogadores) {
             if (melhorJogador == null || (jogador.getIdTime().equals(idTime)
                     && jogador.getNivelHabilidade().compareTo(melhorJogador.getNivelHabilidade()) > 0))
                 melhorJogador = jogador;
-        };
+        }
+        ;
         return melhorJogador.getId();
     }
 
@@ -110,10 +108,11 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
         buscarTimePorId(idTime);
         Jogador jogadorMaisVelho = null;
         for (Jogador jogador : jogadores) {
-            if (jogadorMaisVelho == null  || (jogador.getIdTime().equals(idTime)
+            if (jogadorMaisVelho == null || (jogador.getIdTime().equals(idTime)
                     && jogador.getDataNascimento().isBefore(jogadorMaisVelho.getDataNascimento())))
                 jogadorMaisVelho = jogador;
-        };
+        }
+        ;
         return jogadorMaisVelho.getId();
     }
 
@@ -132,10 +131,11 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
         buscarTimePorId(idTime);
         Jogador jogadorMaiorSalario = null;
         for (Jogador jogador : jogadores) {
-            if (jogadorMaiorSalario == null  || (jogador.getIdTime().equals(idTime)
+            if (jogadorMaiorSalario == null || (jogador.getIdTime().equals(idTime)
                     && jogador.getSalario().compareTo(jogadorMaiorSalario.getSalario()) > 0))
                 jogadorMaiorSalario = jogador;
-        };
+        }
+        ;
         return jogadorMaiorSalario.getId();
     }
 
@@ -146,7 +146,22 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
     @Desafio("buscarTopJogadores")
     public List<Long> buscarTopJogadores(Integer top) {
-        throw new UnsupportedOperationException();
+        ValidatorUtil.validarCamposObrigatorios(top);
+        List<Long> topJogadores = new ArrayList<>();
+
+        if (!jogadores.isEmpty()) {
+            if (jogadores.size() < top)
+                top = jogadores.size();
+
+            Comparator<Jogador> jogadorComparator = Comparator.comparing(Jogador::getNivelHabilidade).reversed();
+            jogadores.stream()
+                    .sorted(jogadorComparator)
+                    .collect(Collectors.toList())
+                    .subList(0, top)
+                    .forEach(jogador -> topJogadores.add(jogador.getId()));
+        }
+
+        return topJogadores;
     }
 
     @Desafio("buscarCorCamisaTimeDeFora")
