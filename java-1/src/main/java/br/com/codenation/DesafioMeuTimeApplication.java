@@ -138,7 +138,6 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
                     && jogador.getSalario().compareTo(jogadorMaiorSalario.getSalario()) > 0))
                 jogadorMaiorSalario = jogador;
         }
-        ;
         return jogadorMaiorSalario.getId();
     }
 
