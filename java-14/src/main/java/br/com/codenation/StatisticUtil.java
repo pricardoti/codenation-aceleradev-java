@@ -10,16 +10,12 @@ import java.util.stream.IntStream;
 public class StatisticUtil {
 
     public static int average(int[] elements) {
-        Double average = IntStream.of(elements)
-                .average().getAsDouble();
-        return average.intValue();
+        return (int) IntStream.of(elements).average().getAsDouble();
     }
 
     public static int mode(int[] elements) {
         Map<Integer, Long> numberGroup = IntStream.of(elements)
                 .boxed()
-                .collect(Collectors.toList())
-                .stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return numberGroup.entrySet().stream()
                 .max(Comparator.comparingLong(Map.Entry::getValue))
