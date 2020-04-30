@@ -14,10 +14,10 @@ public class StatisticUtil {
     }
 
     public static int mode(int[] elements) {
-        Map<Integer, Long> numberGroup = IntStream.of(elements)
+        return IntStream.of(elements)
                 .boxed()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        return numberGroup.entrySet().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream()
                 .max(Comparator.comparingLong(Map.Entry::getValue))
                 .map(Map.Entry::getKey)
                 .get();
