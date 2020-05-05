@@ -27,13 +27,15 @@ public class CalculadorDeClasses implements Calculavel {
 
     private BigDecimal obterValuesFields(Object object, Class<? extends Annotation> annotationClass) {
         return Stream.of(object.getClass().getDeclaredFields())
-                .filter(f -> f.isAnnotationPresent(annotationClass))
+                .filter(field -> field.isAnnotationPresent(annotationClass)
+                        && field.getType().equals(BigDecimal.class))
                 .map(field -> {
                     try {
                         field.setAccessible(true);
-                        return field.get(object) instanceof BigDecimal ? (BigDecimal) field.get(object) : BigDecimal.ZERO;
-                    } catch (IllegalAccessException e) {}
-                    return BigDecimal.ZERO;
+                        return (BigDecimal) field.get(object);
+                    } catch (IllegalAccessException e) {
+                        return BigDecimal.ZERO;
+                    }
                 }).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
