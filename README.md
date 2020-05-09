@@ -13,6 +13,7 @@ Desafio 4: Backend para gerenciar times de futebol <br />
 Desafio 5: Controle de estacionamento <br />
 Desafio 6: Media, Moda e Mediana <br />
 Desafio 7: Utilitário - Calculador de atributos de Classe
+Desafio 8: Criando Entidades de Banco de Dados em Java
 
 ---
 
