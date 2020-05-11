@@ -1,5 +1,6 @@
-package br.com.codenation;
+package java.br.com.codenation;
 
+import br.com.codenation.DesafioMeuTimeApplication;
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 import org.junit.Before;

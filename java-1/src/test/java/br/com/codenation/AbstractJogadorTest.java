@@ -1,5 +1,6 @@
-package br.com.codenation;
+package java.br.com.codenation;
 
+import br.com.codenation.DesafioMeuTimeApplication;
 import org.junit.Before;
 
 import java.math.BigDecimal;

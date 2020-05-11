@@ -1,13 +1,16 @@
-package br.com.codenation;
+package java.br.com.codenation;
 
+import br.com.codenation.DesafioMeuTimeApplication;
 import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
 import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.Assert.assertEquals;
@@ -126,7 +129,7 @@ public class JogadorTest extends AbstractJogadorTest {
         desafioMeuTimeApplication.incluirJogador(4L, CODIGO_TIME_DEFAULT, "Jogador 4", data, getRandomNivelHablidade(), getRandomSalario());
         desafioMeuTimeApplication.incluirJogador(idJogador, CODIGO_TIME_DEFAULT, "Melhor Jogador", data, 100, getRandomSalario());
         desafioMeuTimeApplication.incluirJogador(5L, CODIGO_TIME_DEFAULT, "Jogador 5", data, getRandomNivelHablidade(), getRandomSalario());
-        assertEquals(desafioMeuTimeApplication.buscarMelhorJogadorDoTime(CODIGO_TIME_DEFAULT), idJogador);
+        Assert.assertEquals(desafioMeuTimeApplication.buscarMelhorJogadorDoTime(CODIGO_TIME_DEFAULT), idJogador);
     }
 
     @Test(expected = TimeNaoEncontradoException.class)
@@ -159,6 +162,7 @@ public class JogadorTest extends AbstractJogadorTest {
 
         desafioMeuTimeApplication.incluirTime(4L, "Time 4", data, "Marrom", "Branco");
         desafioMeuTimeApplication.incluirTime(5L, "Time 5", data, "Verde", "Branco");
+
         assertEquals(desafioMeuTimeApplication.buscarTimes().size(), 5);
     }
 
@@ -222,14 +226,14 @@ public class JogadorTest extends AbstractJogadorTest {
         // TOP 1
         List<Long> topJogadores = desafioMeuTimeApplication.buscarTopJogadores(1);
         assertEquals(topJogadores.size(), 1);
-//        assertEquals(topJogadores.get(0), 2L);
+        assertEquals(topJogadores.get(0), 2L, 0L);
 
         // TOP 3
         topJogadores = desafioMeuTimeApplication.buscarTopJogadores(3);
         assertEquals(topJogadores.size(), 3);
-//        assertEquals(topJogadores.get(0), 2L);
-//        assertEquals(topJogadores.get(1), 1L);
-//        assertEquals(topJogadores.get(2), 3L);
+        assertEquals(topJogadores.get(0), 2L, 0L);
+        assertEquals(topJogadores.get(1), 1L, 0L);
+        assertEquals(topJogadores.get(2), 3L, 0L);
     }
 
     @Test(expected = TimeNaoEncontradoException.class)

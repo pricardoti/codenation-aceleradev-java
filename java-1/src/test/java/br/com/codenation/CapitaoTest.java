@@ -1,8 +1,9 @@
-package br.com.codenation;
+package java.br.com.codenation;
 
 import br.com.codenation.desafio.exceptions.CapitaoNaoInformadoException;
 import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
 import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,8 +58,8 @@ public class CapitaoTest extends AbstractJogadorTest {
         desafioMeuTimeApplication.definirCapitao(idCapitaoSegundoTime);
         desafioMeuTimeApplication.definirCapitao(idCapitaoTerceiroTime);
 
-        assertEquals(idCapitaoPrimeiroTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_DEFAULT));
-        assertEquals(idCapitaoSegundoTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_2));
-        assertEquals(idCapitaoTerceiroTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_3));
+        Assert.assertEquals(idCapitaoPrimeiroTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_DEFAULT));
+        Assert.assertEquals(idCapitaoSegundoTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_2));
+        Assert.assertEquals(idCapitaoTerceiroTime, desafioMeuTimeApplication.buscarCapitaoDoTime(CODIGO_TIME_3));
     }
 }

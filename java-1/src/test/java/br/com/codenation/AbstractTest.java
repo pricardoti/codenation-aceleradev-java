@@ -1,4 +1,6 @@
-package br.com.codenation;
+package java.br.com.codenation;
+
+import br.com.codenation.DesafioMeuTimeApplication;
 
 import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
