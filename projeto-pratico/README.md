@@ -30,4 +30,4 @@ Abaixo estão os requisitos desta API, o time terá total liberdade para tomar a
 - A consulta de listagem não deve retornar os LOGs dos Eventos
 - Deve permitir a busca de um evento por um ID, dessa maneira exibindo o LOG desse evento em específico
 
-[Link de orientações para o Projeto](https://docs.google.com/document/d/1DQDTCerZTQSL3ZcdjFwPHzGNnJSaW6IqLj9IiBPWjnI/edit).
+[Link de orientações para o Projeto](./%5BAceleraDev%20Java%5D%20Orienta%C3%A7%C3%B5es%20para%20entrega%20do%20projeto%20final.pdf).
