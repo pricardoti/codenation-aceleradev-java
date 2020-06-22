@@ -1,5 +1,9 @@
 # Codenatio Aceleradev - Java 2020
 
+![GitHub](https://img.shields.io/github/license/pricardoti/codenatio-aceleradev-java?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pricardoti/codenatio-aceleradev-java?color=green&style=for-the-badge)
+
+
 ![Banana](https://github.com/pricardoti/codenatio-aceleradev-java/blob/master/img.png)
 
 O programa é dividido em módulos semanais dentro da nossa plataforma. Os módulos contam com aulas, conteúdos na plataforma, desafios e desenvolvimento do projeto prático ao longo das semanas do programa.
