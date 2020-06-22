@@ -1,7 +1,7 @@
 # Codenatio Aceleradev - Java 2020
 
-![GitHub](https://img.shields.io/github/license/pricardoti/codenatio-aceleradev-java?style=for-the-badge)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pricardoti/codenatio-aceleradev-java?color=green&style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/pricardoti/codenatio-aceleradev-java?color=blue&style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pricardoti/codenatio-aceleradev-java?style=flat-square)
 
 
 ![Banana](https://github.com/pricardoti/codenatio-aceleradev-java/blob/master/img.png)
